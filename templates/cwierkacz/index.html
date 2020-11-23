@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ćwierkacz</title>
+    {% if latest_posts %}
+        <ul>
+            {% for post in latest_posts %}
+                <li><a href="{% url 'cwierkacz:show_post' post.id %}">{{ post.text }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No posts are available.</p>
+    {% endif %}
+</head>
+<body>
+
+</body>
+</html>
