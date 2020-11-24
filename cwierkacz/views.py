@@ -1,15 +1,17 @@
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.views import generic
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+from datetime import date
+
 from .models import Post
+from .forms import PostForm
 
 
 def home(request):
-    return HttpResponseRedirect('posts/')
+    return redirect('posts/')
 
 
 def register(request):
@@ -28,11 +30,22 @@ def register(request):
 
 
 def new_post(request):
-    pass
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            author = request.user
+            text = form.cleaned_data.get('text')
+            created_date = date.today()
+            post = Post(author=author, text=text, created_date=created_date)
+            post.save()
+            return redirect('/')
+    else:
+        form = PostForm()
+    return render(request, 'cwierkacz/new_post.html', {'form': form})
 
 
-class IndexListView(generic.ListView):
-    template_name = 'cwierkacz/index.html'
+class PostsListView(generic.ListView):
+    template_name = 'cwierkacz/posts.html'
     context_object_name = 'latest_posts'
 
     def get_queryset(self):
@@ -41,10 +54,12 @@ class IndexListView(generic.ListView):
 
 class PostDetailView(generic.DetailView):
     model = Post
+    template_name = 'cwierkacz/post_detail.html'
 
 
 class UserDetailView(generic.DetailView):
     model = User
+    template_name = 'cwierkacz/user_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

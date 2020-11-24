@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class ĆwierkaczConfig(AppConfig):
+class CwierkaczConfig(AppConfig):
     name = 'cwierkacz'
