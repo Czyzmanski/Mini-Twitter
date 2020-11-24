@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {{ post }}
+    <title>{{ post.short_info }}</title>
 </head>
 <body>
-
+    <h1 style="text-align: center">{{ post.short_info }}</h1>
+    <p>{{ post.text }}</p>
+    <p>Autor: <a href="{% url 'cwierkacz:show_user' post.author_id %}">{{ post.author.username }}</a></p>
+    <p>Utworzony: {{ post.created_date }}</p>
 </body>
 </html>

@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Ćwierkacz</title>
+</head>
+<body>
+    <h1 style="text-align: center">Ćwierkacz</h1>
+    <h2 style="text-align: center">Ostatnie posty</h2>
     {% if latest_posts %}
         <ul>
             {% for post in latest_posts %}
-                <li><a href="{% url 'cwierkacz:show_post' post.id %}">{{ post.text }}</a></li>
+                <li><a href="{% url 'cwierkacz:show_post' post.id %}">{{ post.short_info }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>No posts are available.</p>
+        <p>Brak postów.</p>
     {% endif %}
-</head>
-<body>
-
 </body>
 </html>

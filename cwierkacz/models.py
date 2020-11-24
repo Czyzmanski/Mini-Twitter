@@ -7,5 +7,9 @@ class Post(models.Model):
     text = models.TextField()
     created_date = models.DateField()
 
+    @property
+    def short_info(self):
+        return f'{self.author.username}, {self.created_date}'
+
     def __str__(self):
         return self.text
