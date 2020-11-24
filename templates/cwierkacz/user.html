@@ -6,12 +6,12 @@
 </head>
 <body>
     <h1>{{ user.username }}</h1>
-    <ul>
+    <ol>
         {% for post in posts %}
             <p><strong>{{ post.created_date }}</strong></p>
             <p>{{ post.text }}</p>
             <p></p>
         {% endfor %}
-    </ul>
+    </ol>
 </body>
 </html>
