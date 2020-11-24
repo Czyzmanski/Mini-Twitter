@@ -1,23 +1,52 @@
-from django.shortcuts import get_object_or_404, render
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, render
+from django.views import generic
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import Post
 
 
-def index(request):
-    latest_posts = Post.objects.order_by('-created_date')[:10]
-
-    return render(request, 'cwierkacz/index.html', {'latest_posts': latest_posts})
+def home(request):
+    return HttpResponseRedirect('posts/')
 
 
-def show_post(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
 
-    return render(request, 'cwierkacz/post.html', {'post': post})
+
+def new_post(request):
+    pass
 
 
-def show_user(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
-    posts = user.post_set.all().order_by('-created_date')
+class IndexListView(generic.ListView):
+    template_name = 'cwierkacz/index.html'
+    context_object_name = 'latest_posts'
 
-    return render(request, 'cwierkacz/user.html', {'user': user, 'posts': posts})
+    def get_queryset(self):
+        return Post.objects.order_by('-created_date')[:10]
+
+
+class PostDetailView(generic.DetailView):
+    model = Post
+
+
+class UserDetailView(generic.DetailView):
+    model = User
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = self.object.post_set.all().order_by('-created_date')
+        return context

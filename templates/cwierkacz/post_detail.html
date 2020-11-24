@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ object.short_info }}</title>
+</head>
+<body>
+    <h1 style="text-align: center">{{ object.short_info }}</h1>
+    <p>{{ object.text }}</p>
+    <p>Autor: <a href="{% url 'cwierkacz:user-detail' object.author_id %}">{{ object.author.username }}</a></p>
+    <p>Utworzony: {{ object.created_date }}</p>
+</body>
+</html>

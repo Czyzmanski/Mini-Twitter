@@ -5,12 +5,14 @@
     <title>Ćwierkacz</title>
 </head>
 <body>
+    <p style="text-align: left"><a href="{% url 'cwierkacz:logout' %}">Wyloguj</a></p>
+    <p style="text-align: left"><a href="{% url 'cwierkacz:create-post' %}">Napisz post</a></p>
     <h1 style="text-align: center">Ćwierkacz</h1>
     <h2 style="text-align: center">Ostatnie posty</h2>
     {% if latest_posts %}
         <ul>
             {% for post in latest_posts %}
-                <li><a href="{% url 'cwierkacz:show_post' post.id %}">{{ post.short_info }}</a></li>
+                <li><a href="{% url 'cwierkacz:post-detail' post.id %}">{{ post.short_info }}</a></li>
             {% endfor %}
         </ul>
     {% else %}

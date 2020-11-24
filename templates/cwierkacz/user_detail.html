@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ user.username }}</title>
+    <title>{{ object.objectname }}</title>
 </head>
 <body>
-    <h1>{{ user.username }}</h1>
+    <h1>{{ object.objectname }}</h1>
     <ol>
         {% for post in posts %}
             <p><strong>{{ post.created_date }}</strong></p>
