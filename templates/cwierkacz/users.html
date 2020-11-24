@@ -5,25 +5,21 @@
     <title>Ćwierkacz</title>
 </head>
 <body>
-{% load tz %}
-{% localtime on %}
     <p style="text-align: left"><a href="{% url 'cwierkacz:logout' %}">Wyloguj</a></p>
     <p style="text-align: left"><a href="{% url 'cwierkacz:create-post' %}">Napisz post</a></p>
-    <p style="text-align: left"><a href="{% url 'cwierkacz:users' %}">Użytkownicy</a></p>
+    <p style="text-align: left"><a href="{% url 'cwierkacz:user-detail' user.pk %}">Moje posty</a></p>
     <h1 style="text-align: center">Ćwierkacz</h1>
-    <h2 style="text-align: center">Ostatnie posty</h2>
-    {% if latest_posts %}
+    <h2 style="text-align: center">Inni użytkownicy</h2>
+    {% if users %}
         <ul>
-            {% for post in latest_posts %}
+            {% for u in users %}
                 <li>
-                    <a href="{% url 'cwierkacz:post-detail' post.id %}">
-                        {{ post.author.username }}, {{ post.created_date | localtime }}</a>
+                    <a href="{% url 'cwierkacz:user-detail' u.pk %}"> {{ u.username }}</a>
                 </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>Brak postów.</p>
+        <p>Brak innych użytkowników.</p>
     {% endif %}
-{% endlocaltime %}
 </body>
 </html>

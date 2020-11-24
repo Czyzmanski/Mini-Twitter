@@ -5,11 +5,14 @@
     <title>Nowy post</title>
 </head>
 <body>
-    <h2>Nowy post</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Zapisz post</button>
-    </form>
+<p style="text-align: left"><a href="{% url 'cwierkacz:home' %}">Strona główna</a></p>
+<p style="text-align: left"><a href="{% url 'cwierkacz:user-detail' user.pk %}">Moje posty</a></p>
+<p style="text-align: left"><a href="{% url 'cwierkacz:users' %}">Użytkownicy</a></p>
+<h2>Nowy post</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Zapisz post</button>
+</form>
 </body>
 </html>

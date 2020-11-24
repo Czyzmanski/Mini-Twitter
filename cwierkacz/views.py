@@ -4,7 +4,7 @@ from django.views import generic
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-from datetime import date
+from datetime import datetime
 
 from .models import Post
 from .forms import PostForm
@@ -35,7 +35,7 @@ def new_post(request):
         if form.is_valid():
             author = request.user
             text = form.cleaned_data.get('text')
-            created_date = date.today()
+            created_date = datetime.now()
             post = Post(author=author, text=text, created_date=created_date)
             post.save()
             return redirect('/')
@@ -65,3 +65,11 @@ class UserDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['posts'] = self.object.post_set.all().order_by('-created_date')
         return context
+
+
+class UsersListView(generic.ListView):
+    template_name = 'cwierkacz/users.html'
+    context_object_name = 'users'
+
+    def get_queryset(self):
+        return User.objects.exclude(username=self.request.user.username).order_by('username')

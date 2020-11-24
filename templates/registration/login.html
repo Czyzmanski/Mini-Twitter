@@ -5,12 +5,12 @@
     <title>Logowanie</title>
 </head>
 <body>
-    <h2>Logowanie</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Zaloguj się</button>
-    </form>
-    <p>Nie masz konta? <a href="{% url 'cwierkacz:register' %}">Zarejestruj się!</a></p>
+<h2>Logowanie</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Zaloguj się</button>
+</form>
+<p>Nie masz konta? <a href="{% url 'cwierkacz:register' %}">Zarejestruj się!</a></p>
 </body>
 </html>

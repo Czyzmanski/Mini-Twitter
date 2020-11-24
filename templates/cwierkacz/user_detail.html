@@ -2,16 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ object.objectname }}</title>
+    <title>{{ object.username }}</title>
 </head>
 <body>
-    <h1>{{ object.objectname }}</h1>
-    <ol>
-        {% for post in posts %}
-            <p><strong>{{ post.created_date }}</strong></p>
-            <p>{{ post.text }}</p>
-            <p></p>
-        {% endfor %}
-    </ol>
+{% load tz %}
+{% localtime on %}
+    <p style="text-align: left"><a href="{% url 'cwierkacz:home' %}">Strona główna</a></p>
+    <p style="text-align: left"><a href="{% url 'cwierkacz:users' %}">Użytkownicy</a></p>
+    <h1>{{ object.username }}</h1>
+    {% if posts %}
+        <ol>
+            {% for post in posts %}
+                <p><strong>{{ post.created_date | localtime }}</strong></p>
+                <p>{{ post.text }}</p>
+                <p></p>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>Brak postów tego użytkownika.</p>
+    {% endif %}
+{% endlocaltime %}
 </body>
 </html>

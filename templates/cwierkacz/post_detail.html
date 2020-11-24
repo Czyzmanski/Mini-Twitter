@@ -5,9 +5,15 @@
     <title>{{ object.short_info }}</title>
 </head>
 <body>
-    <h1 style="text-align: center">{{ object.short_info }}</h1>
+{% load tz %}
+{% localtime on %}
+    <p style="text-align: left"><a href="{% url 'cwierkacz:home' %}">Strona główna</a></p>
+    <p style="text-align: left"><a href="{% url 'cwierkacz:user-detail' user.pk %}">Moje posty</a></p>
+    <p style="text-align: left"><a href="{% url 'cwierkacz:users' %}">Użytkownicy</a></p>
+    <h1 style="text-align: center">{{ object.author.username }}, {{ object.created_date | localtime }}</h1>
     <p>{{ object.text }}</p>
     <p>Autor: <a href="{% url 'cwierkacz:user-detail' object.author_id %}">{{ object.author.username }}</a></p>
-    <p>Utworzony: {{ object.created_date }}</p>
+    <p>Utworzony: {{ object.created_date | localtime }}</p>
+{% endlocaltime %}
 </body>
 </html>
