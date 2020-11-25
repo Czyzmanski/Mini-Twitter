@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ object.short_info }}</title>
+    {% load tz %}
+    {% localtime on %}
+        <title>{{ object.author.username }}, {{ object.created_date | localtime }}</title>
+    {% endlocaltime %}
 </head>
 <body>
 {% load tz %}
